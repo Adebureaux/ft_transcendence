@@ -1,0 +1,16 @@
+Backend
+Installer node en v18 (lts)
+Installer Docker et Docker-compose
+Dans le dossier backend -> npm i
+Lancer en faisant : npm run def
+(Port 3000)
+
+Frontend
+npm i
+quasar dev
+
+Sur le navigateur: ouvre automatiquement sur le port 9000
+
+Mission:
+Faire la page profile
+on recoit un objet user (nom + avatar + game history p1 + game history p2)

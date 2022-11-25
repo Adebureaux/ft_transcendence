@@ -1,0 +1,44 @@
+#REST API Endpoints
+	[ ] Complete API
+		[ ] /
+
+		[ ] /users
+			[ ] /byId/:id #get
+			[ ] /byName/:name #get
+			[ ] /byEmail/:email #get
+			[ ] /invitetogame #post
+
+		[ ] /me
+			[ ] /profile #get
+			[ ] /updateProfile #patch
+
+		[ ] /auth
+			[ ] /login 
+				[ ] /local_strategy #post
+				[ ] /42_strategy #post
+			[ ] /signup
+				[ ] /local_strategy #post
+				[ ] /42_strategy #post
+			[ ] /logout #post
+			[ ] /signout #post
+			[ ] /refresh #post || #get ?
+
+		[ ] /channels
+			[ ] /create #post
+			[ ] /:channelId #patch
+			[ ] /:channelId #delete
+			[ ] /usersInChannelbyId/:channelId #get
+			[ ] /getMessages/:channelId #get
+			[ ] /postMessage/:channelId #post
+
+		[ ] /profiles
+			[ ] /byGameId/:gameId #get
+				[!] should return playerOne and playerTwo profiles
+			[ ] /byUserId/:UserId #get
+				[!] should return one user profile
+
+		[ ] /games
+			[ ] /create #post
+			[ ] /:id #get
+			[ ] /:id #patch
+			[ ] /ofUser/:userId #get

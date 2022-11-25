@@ -1,0 +1,30 @@
+GET http://localhost:3000/api/users/rballage/profile HTTP/1.1
+
+###
+GET http://localhost:3000/api/users/TrucMuche HTTP/1.1
+
+###
+
+GET http://localhost:3000/api/users/rballage HTTP/1.1
+
+###
+
+POST http://localhost:3000/api/users HTTP/1.1
+content-type: application/json
+
+{
+    "username": "TrucMuche",
+    "password": "superstrongpassword",
+	"email": "TrucMuche@example.com"
+}
+
+###
+
+POST http://localhost:3000/api/users HTTP/1.1
+content-type: application/json
+
+{
+    "username": "Aymeric",
+    "password": "superstrongpassword",
+	"email": "ssingevi@student.42.fr"
+}
