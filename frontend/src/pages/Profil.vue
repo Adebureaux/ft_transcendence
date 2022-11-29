@@ -1,25 +1,32 @@
 <template>
-  <q-page>
-    COUCOU :)
-  </q-page>
+    <q-btn
+      @click="loadData"
+      color="primary"
+      label= data.username
+    />
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from 'vue';
+<script>
+import { useQuasar } from 'quasar'
+import { ref } from 'vue'
+import { api } from 'boot/axios'
 
-export default defineComponent({
-  name: 'Profil',
-  components: {},
-  props: {},
-  data() {
-    return {
+export default {
+  setup () {
+    const $q = useQuasar()
+    const data = ref(null)
 
+    function loadData () {
+      api.get('/api/users/Matthieu')
+        .then((response) => {
+          data.value = response.data
+          console.log(data.value)
+        })
+        .catch(() => {
+          console.error('error')
+        })
     }
-  },
-  methods: {},
-});
+    return { data, loadData }
+  }
+}
 </script>
-
-<style lang="sass">
-
-</style>
