@@ -10,7 +10,7 @@
           <q-btn class="q-mr-sm" to="/usercard" color="green" >UserCardTest</q-btn>
           <q-btn class="q-mr-sm" to="/upload"   color="green" >Avatar Upload</q-btn>
           <q-btn class="q-mr-sm" to="/feeddb"   color="green" >Auto Feed Database</q-btn>
-          <q-btn class="q-mr-sm" to="/Profil"   color="green" >Profile</q-btn>
+          <q-btn class="q-mr-sm" to="/profile"   color="green" >Profile</q-btn>
         </q-toolbar-title>
       </q-toolbar>
     </q-header>
@@ -71,7 +71,7 @@ export default defineComponent({
   methods: {
     goProfilPage() {
       this.$router.push({
-        path: '/profil',
+        path: '/profile',
         query: { user: 'me' }
       })
     }

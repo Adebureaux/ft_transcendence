@@ -27,26 +27,33 @@ model User {
     blockedBy            Blocks[]       @relation("blocking")
     blocking             Blocks[]       @relation("blocker")
     avatars              Avatar?        @relation("avatar")
+	victoriesAsPOne		Int @default(0)
+	victoriesAsPTwo		Int @default(0)
+	defeatsAsPOne		Int @default(0)
+	defeatsAsPTwo		Int @default(0)
 }
 
 // must check on creation that the relationship doenst link the same user
 model Follows {
     follower    User   @relation("follower", fields: [followerId], references: [username], onUpdate: Cascade, onDelete: Cascade)
-    followerId  String @unique
+    followerId  String
     following   User   @relation("following", fields: [followingId], references: [username], onUpdate: Cascade, onDelete: Cascade)
-    followingId String @unique
+    followingId String
+    id          String @id @unique @default(uuid())
 
-    @@id([followerId, followingId])
+    @@unique([followerId, followingId])
 }
 
 // must check on creation that the relationship doenst link the same user
 model Blocks {
     blocker    User   @relation("blocker", fields: [blockerId], references: [username], onUpdate: Cascade, onDelete: Cascade)
-    blockerId  String @unique
+    blockerId  String
     blocking   User   @relation("blocking", fields: [blockingId], references: [username], onUpdate: Cascade, onDelete: Cascade)
-    blockingId String @unique
+    blockingId String
 
-    @@id([blockerId, blockingId])
+    id String @id @unique @default(uuid())
+
+    @@unique([blockerId, blockingId])
 }
 
 model Message {
@@ -92,8 +99,8 @@ model Game {
     id              String    @id @unique @default(uuid())
     finishedAt      DateTime? @default(now())
     startedAt       DateTime  @default(now())
-    score_playerOne Int?
-    score_playerTwo Int
+    score_playerOne Int 	@default(0)
+    score_playerTwo Int     @default(0)
     playerOne       User?     @relation("p1player", fields: [playerOneName], references: [username], onUpdate: Cascade, onDelete: SetNull)
     playerOneName   String?
     playerTwo       User?     @relation("p2player", fields: [playerTwoName], references: [username], onUpdate: Cascade, onDelete: SetNull)

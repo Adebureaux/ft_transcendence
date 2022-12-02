@@ -1,30 +1,50 @@
-GET http://localhost:3000/api/users/rballage/profile HTTP/1.1
+GET http://localhost:3000/api/users/Alice99/profile?nb=x HTTP/1.1
 
 ###
-GET http://localhost:3000/api/users/TrucMuche HTTP/1.1
-
-###
-
-GET http://localhost:3000/api/users/rballage HTTP/1.1
+GET http://localhost:3000/api/users/Awoman/profile HTTP/1.1
 
 ###
 
-POST http://localhost:3000/api/users HTTP/1.1
+GET http://localhost:3000/api/auth/refresh HTTP/1.1
+
+###
+
+GET http://localhost:3000/api/users/Alice99/games?skip=0&take=20&order=desc HTTP/1.1
+
+###
+GET http://localhost:3000/api/users/me HTTP/1.1
+
+###
+GET http://localhost:3000/api/users/search?key=a&skip=1&take=20&caca=true HTTP/1.1
+
+###
+POST http://localhost:3000/api/auth/login HTTP/1.1
+content-type: application/json
+
+{
+    "username": "Alice99",
+    "password": "null"
+}
+
+###
+POST http://localhost:3000/api/auth/login HTTP/1.1
 content-type: application/json
 
 {
     "username": "TrucMuche",
-    "password": "superstrongpassword",
-	"email": "TrucMuche@example.com"
+    "password": "superstrongpassword"
+}
+
+###
+POST http://localhost:3000/api/auth/login HTTP/1.1
+content-type: application/json
+
+{
+    "username": "popo",
+    "password": "superstrongpassword"
 }
 
 ###
 
-POST http://localhost:3000/api/users HTTP/1.1
-content-type: application/json
+GET http://localhost:3000/api/users/Alice99/profile HTTP/1.1
 
-{
-    "username": "Aymeric",
-    "password": "superstrongpassword",
-	"email": "ssingevi@student.42.fr"
-}
