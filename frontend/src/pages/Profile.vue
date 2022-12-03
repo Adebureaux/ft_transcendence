@@ -1,12 +1,12 @@
 <template>
 	<q-page>
 		<div class="q-pa-lg">
-		<ProfileSummary
-			:name=profile.username
-			avatar="https://avatars.githubusercontent.com/adebureaux"
-			:victory=(profile.victoriesAsPOne+profile.victoriesAsPTwo)
-			:defeat=(profile.defeatsAsPOne+profile.defeatsAsPTwo)
-		></ProfileSummary>
+			<ProfileSummary
+				:name=profile.username
+				avatar="https://avatars.githubusercontent.com/adebureaux"
+				:victory=(profile.victoriesAsPOne+profile.victoriesAsPTwo)
+				:defeat=(profile.defeatsAsPOne+profile.defeatsAsPTwo)
+			></ProfileSummary>
 		</div>
 	</q-page>
 </template>
@@ -19,7 +19,9 @@
 
 	
 	// Should be replaced by parent authentication
-	api.request({method: 'POST', url: '/api/auth/login', data: {username: 'TrucMuche', password: 'superstrongpassword'}}).then(function (response) {}).catch(function (error) {console.error(error);});
+	api.request({method: 'POST', url: '/api/auth/login', data: {username: 'TrucMuche', password: 'superstrongpassword'}})
+	.then()
+	.catch(function (error) {console.error(error);});
 
 	const me = await api.get(`/api/users/me`)
 	
@@ -27,6 +29,7 @@
 		name: 'Profile',
 		components: { ProfileSummary },
 		data() {
+			console.log(this.$route.params)
 			return {
 				username: '' as string,
 				profile: [] as any,
