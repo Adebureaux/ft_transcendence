@@ -88,7 +88,6 @@ export default defineComponent({
       }
     },
     avatarSize(size: string): string {
-      console.log((this.ratio * definedSizes.large.px))
       switch (size) {
         case 'small' : return ((this.ratio * definedSizes.small.px) + 'px');
         case 'medium': return ((this.ratio * definedSizes.medium.px) + 'px');

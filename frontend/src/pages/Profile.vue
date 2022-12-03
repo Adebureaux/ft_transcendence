@@ -1,9 +1,13 @@
 <template>
 	<q-page>
+		<div class="q-pa-lg">
 		<ProfileSummary
 			:name=profile.username
 			avatar="https://avatars.githubusercontent.com/adebureaux"
+			:victory=(profile.victoriesAsPOne+profile.victoriesAsPTwo)
+			:defeat=(profile.defeatsAsPOne+profile.defeatsAsPTwo)
 		></ProfileSummary>
+		</div>
 	</q-page>
 </template>
 
