@@ -56,7 +56,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 import UserCard from '../components/common/UserCard.vue'
 import { IUserBasicInfo, OnlineStatus } from '../models/models'
 import { randomDate } from '../models/fakedatas'

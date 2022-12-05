@@ -1,4 +1,4 @@
-import { Prisma, User } from "@prisma/client"
+import { Prisma } from "@prisma/client"
 
 export const userProfileQuery = Prisma.validator<Prisma.UserArgs>()({
 	select: {
@@ -8,13 +8,13 @@ export const userProfileQuery = Prisma.validator<Prisma.UserArgs>()({
 		defeatsAsPOne:true,
 		defeatsAsPTwo:true,
 
-		avatars: {
-			select: {
-				linkThumbnail: true,
-				linkMedium: true,
-				linkLarge: true
-			},
-		},
+		// avatars: {
+		// 	select: {
+		// 		linkThumbnail: true,
+		// 		linkMedium: true,
+		// 		linkLarge: true
+		// 	},
+		// },
 	}
 });
 
@@ -57,3 +57,18 @@ export const userWholeQuery = Prisma.validator<Prisma.UserArgs>()({
 export type UserProfile = Prisma.UserGetPayload<typeof userProfileQuery>
 
 export type UserWhole = Prisma.UserGetPayload<typeof userWholeQuery>
+
+export interface IGames {
+    total:  number;
+    result: IResultGames[];
+}
+
+export interface IResultGames {
+    id:              string;
+    finishedAt:      Date;
+    startedAt:       Date;
+    score_playerOne: number;
+    score_playerTwo: number;
+    playerOneName:   string;
+    playerTwoName:   string;
+}

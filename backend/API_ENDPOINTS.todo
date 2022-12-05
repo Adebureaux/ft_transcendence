@@ -45,3 +45,19 @@
 			[ ] /:id #get
 			[ ] /:id #patch
 			[ ] /ofUser/:userId #get
+
+
+receive file > savefile to a avatars directory with:
+	new uuid as file name,
+	save uuid to user avatar object as original file
+	save file extension to user avatar object as original_file_extension
+	save file mime/type to user avatar object as original_mime_type
+	set paths for thumbnail, medium, large from uuid 
+	signal to avatar process queue:
+		with avatar uuid, username as parameters
+
+
+	/refresh sans cookies = 500
+	 498 ?
+	 search users devrait renvoyer uniquement username
+	 

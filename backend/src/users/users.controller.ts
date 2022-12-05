@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req, Quer
 import JwtAuthGuard from '../auth/guard/jwt-auth.guard';
 import { UsersService } from './users.service';
 import { ParamUsernameDto, QueryGetGamesDto, QuerySearchUserDto } from './dto/users.dto';
-import { UserProfile, UserWhole} from './types/users.types';
+import { IGames, UserProfile, UserWhole} from './types/users.types';
 import { IRequestWithUser } from '../auth/auths.interface';
 
 
@@ -23,13 +23,13 @@ export class UsersController {
 
 	@Get('me/games')
 	async getGames(@Req() request: IRequestWithUser,
-		@Query() query: QueryGetGamesDto) {
+		@Query() query: QueryGetGamesDto) : Promise<IGames> {
 		return await this.usersService.getUserGames(request.user.username, query.skip, query.take, query.order);
 	}
 
 	@Get(':username/games')
 	async getTargetGames(@Param() usernameDto: ParamUsernameDto,
-		@Query() query: QueryGetGamesDto) {
+		@Query() query: QueryGetGamesDto) : Promise<IGames> {
 		return await this.usersService.getUserGames(usernameDto.username, query.skip, query.take, query.order);
 	}
 

@@ -1,6 +1,6 @@
 
 import { PassportStrategy } from '@nestjs/passport';
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 // import { AuthService } from './auth.service';
 // import { User } from '@prisma/client';
 
@@ -18,6 +18,8 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
 		super({
 			secretOrKey: `${process.env.JWT_ACCESS_SECRET}`,
 			jwtFromRequest: ExtractJwt.fromExtractors([(request: Request) => {
+				if (!request?.cookies?.Authentication)
+		    		throw new HttpException('No Tokens, must login', 417);
 				return request?.cookies?.Authentication;
 			}]),
 		});
