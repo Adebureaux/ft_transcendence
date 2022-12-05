@@ -67,10 +67,10 @@ export default defineComponent({
 			this.games = response.data
 		},
 	},
-	async mounted() {
-		await this.fetchUserProfile()
-		await this.fetchGameHistory()
-	}
+		async mounted() {
+			await this.fetchUserProfile()
+			await this.fetchGameHistory()
+		}
 })
 </script>
 

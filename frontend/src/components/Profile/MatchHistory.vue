@@ -1,19 +1,25 @@
 <template>
-<ProfileCard
-	:name=pOne
-	:avatar=avatarOne
-	thumb="yes"
-></ProfileCard>
-<q-separator vertical color="white" spaced></q-separator>
+<q-item class="padding">
+	<ProfileCard
+		:name=pOne
+		:avatar=avatarOne
+		thumb="yes"
+	></ProfileCard>
+</q-item>
+<q-separator vertical color="white"></q-separator>
+<q-item class="padding">
 <q-item-section>
 	<q-item-label>Victory</q-item-label>
 </q-item-section>
-<q-separator vertical color="white" spaced></q-separator>
+</q-item>
+<q-separator vertical color="white"></q-separator>
+<q-item class="padding">
 	<ProfileCard
 		:name=pTwo
 		:avatar=avatarTwo
 		thumb="yes"
 	></ProfileCard>
+</q-item>
 </template>
 
 <script lang="ts">
@@ -31,8 +37,9 @@ export default defineComponent({
 		avatarOne : { type: String, default: undefined },
 		avatarTwo : { type: String, default: undefined },
 	},
-	methods: {}
-});
+	methods: {
+	}
+})
 </script>
 
 <style lang="sass" scoped>
