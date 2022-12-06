@@ -10,6 +10,7 @@ import { Request } from 'express';
 import { ITokenPayload } from '../auths.interface';
 import * as dotenv from 'dotenv';
 import { AuthService } from '../auth.service';
+import { User } from '@prisma/client';
 dotenv.config();
  
 @Injectable()
@@ -26,7 +27,7 @@ export class JwtRefreshStrategy extends PassportStrategy(Strategy, 'jwt-refresh'
 		});
 	}
  
-	async validate(request: Request, payload: ITokenPayload ) {
+	async validate(request: Request, payload: ITokenPayload ) : Promise<User> {
 		const refreshToken = request?.cookies?.Refresh;
 		return this.authService.getUserIfRefreshTokenMatches(refreshToken, payload.username);
 	}

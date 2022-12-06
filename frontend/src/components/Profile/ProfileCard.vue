@@ -60,5 +60,4 @@ export default defineComponent({
 .avatar
 	@include interpolate(font-size, 320px, 2560px, 40px, 140px)
 	outline: 1.5px solid white
-
 </style>

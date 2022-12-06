@@ -32,23 +32,19 @@
 <script lang="ts">
 import { api } from 'boot/axios'
 import { defineComponent } from 'vue'
-
 import MatchHistory from '../components/Profile/MatchHistory.vue'
 import ProfileSummary from '../components/Profile/ProfileSummary.vue'
-
 
 // Should be replaced by parent authentication
 api.request({method: 'POST', url: '/api/auth/login', data: {username: 'TrucMuche', password: 'superstrongpassword'}})
 .then()
 .catch(function (error) {console.error(error);});
-
-const me = await api.get(`/api/users/me`)
+// const me = await api.get(`/api/users/me`)
 
 export default defineComponent({
 	name: 'Profile',
 	components: { ProfileSummary, MatchHistory },
 	data() {
-		console.log(this.$route.params)
 		return {
 			username: '' as string,
 			profile: [] as any,
@@ -56,52 +52,41 @@ export default defineComponent({
 		}
 	},
 	methods: {
+		getUserName() {
+			this.username = this.$route.params.username.toString()
+			console.log(this.username, 'ici')
+			api.get(`/api/users/${this.username}/profile`)
+			.then((res) => console.log('The user exist', res))
+			.catch((res) => console.log('The user does not exist', res))
+		},
 		async fetchUserProfile() {
-			const response = await api.get(`/api/users/${me.data.username}/profile`)
+			const response = await api.get(`/api/users/${this.username}/profile`)
 			console.log(response.data)
 			this.profile = response.data
 		},
 		async fetchGameHistory() {
-			const response = await api.get(`/api/users/${me.data.username}/games?skip=0&take=20&order=desc`)
+			const response = await api.get(`/api/users/${this.username}/games?skip=0&take=20&order=desc`)
 			console.log(response.data)
 			this.games = response.data
 		},
 	},
-		async mounted() {
-			await this.fetchUserProfile()
-			await this.fetchGameHistory()
-		}
+	created () {
+		this.getUserName()
+	},
+	async mounted () {
+		await this.fetchUserProfile()
+		await this.fetchGameHistory()
+	}
 })
 </script>
 
 <syle lang="sass">
-@mixin interpolate($properties, $min-screen, $max-screen, $min-value, $max-value)
-	&
-		@each $property in $properties
-			#{$property}: $min-value
-
-		@media screen and (min-width: $min-screen)
-			@each $property in $properties
-				#{$property}: calc-interpolation($min-screen, $min-value, $max-screen, $max-value)
-
-		@media screen and (min-width: $max-screen)
-			@each $property in $properties
-				#{$property}: $max-value
-
-@function calc-interpolation($min-screen, $min-value, $max-screen, $max-value)
-	$a: ($max-value - $min-value) / ($max-screen - $min-screen)
-	$b: $min-value - $a * $min-screen
-
-	$sign: "+"
-	@if ($b < 0)
-		$sign: "-"
-		$b: abs($b)
-	@return calc(#{$a*100}vw #{$sign} #{$b})
+@use "../css/interpolate" as r
 
 .padding
-	@include interpolate((padding-left, padding-bottom), 320px, 2560px, 20px, 50px)
+	@inculde r.interpolate((padding-left, padding-bottom), 320px, 2560px, 20px, 50px)
 
 .label
-	@include interpolate(font-size, 320px, 2560px, 12px, 30px)
+	@inculde r.interpolate(font-size, 320px, 2560px, 12px, 30px)
 	color: white
 </syle>

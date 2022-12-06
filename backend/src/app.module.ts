@@ -17,10 +17,10 @@ import { AvatarModule } from './avatar/avatar.module';
 
 @Module({
   imports: [UsersModule, AuthModule,
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', '..' , 'client'),
-      exclude: ['/api*'],
-    }),
+    // ServeStaticModule.forRoot({
+    //   rootPath: join(__dirname, '..', '..' , 'client'),
+    //   exclude: ['/api*'],
+    // }),
 	JwtModule.register({
       secret: `${process.env.JWT_ACCESS_SECRET}`
     }),

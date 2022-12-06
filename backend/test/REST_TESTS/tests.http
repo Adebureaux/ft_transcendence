@@ -1,7 +1,7 @@
 GET http://localhost:3000/api/users/Alice99/profile?nb=x HTTP/1.1
 
 ###
-GET http://localhost:3000/api/users/Awoman/profile HTTP/1.1
+GET http://localhost:3000/api/users/me/profile HTTP/1.1
 
 ###
 

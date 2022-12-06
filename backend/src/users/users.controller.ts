@@ -17,7 +17,9 @@ export class UsersController {
 	}
 
 	@Get(':username/profile')
-	async getProfile(@Param() usernameDto: ParamUsernameDto): Promise<UserProfile> {
+	async getProfile(@Param() usernameDto: ParamUsernameDto, @Req() request: IRequestWithUser): Promise<UserProfile> {
+		if (usernameDto.username as string == 'me')
+		    return await this.usersService.getProfile(request.user.username);
 		return await this.usersService.getProfile(usernameDto.username);
 	}
 

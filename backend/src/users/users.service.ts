@@ -35,7 +35,9 @@ export class UsersService {
 				where: { username: name },
 				...userProfileQuery
 			});
-		return user;
+		if (!user)
+		    throw new NotFoundException("User not found");
+        return user;
 	}
 
 	async getWholeUser(name : string) : Promise<UserWhole> {
