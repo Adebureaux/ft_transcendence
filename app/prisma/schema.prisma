@@ -1,0 +1,136 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model User {
+    username             String         @id @unique
+    email                String         @unique
+    createdAt            DateTime       @default(now())
+    updatedAt            DateTime       @updatedAt
+    TwoFA                Boolean?       @default(false)
+    auth42               Boolean        @default(false)
+    auth42Id             String         @default("")
+    TwoFASecret          String?        @default("")
+    password             String         @default("null")
+    refresh_token        String?
+    channelSubscriptions Subscription[] @relation("myPrivateChannels")
+    messages             Message[]
+    gameHistoryPOne      Game[]         @relation("p1player")
+    gameHistoryPTwo      Game[]         @relation("p2player")
+    followedBy           Follows[]      @relation("following")
+    following            Follows[]      @relation("follower")
+    blockedBy            Blocks[]       @relation("blocking")
+    blocking             Blocks[]       @relation("blocker")
+    avatars              Avatar?        @relation("avatar")
+    victoriesAsPOne      Int            @default(0)
+    victoriesAsPTwo      Int            @default(0)
+    defeatsAsPOne        Int            @default(0)
+    defeatsAsPTwo        Int            @default(0)
+}
+
+model Follows {
+    follower    User   @relation("follower", fields: [followerId], references: [username], onUpdate: Cascade, onDelete: Cascade)
+    followerId  String
+    following   User   @relation("following", fields: [followingId], references: [username], onUpdate: Cascade, onDelete: Cascade)
+    followingId String
+    id          String @id @unique @default(uuid())
+
+    @@unique([followerId, followingId])
+}
+
+model Blocks {
+    blocker    User   @relation("blocker", fields: [blockerId], references: [username], onUpdate: Cascade, onDelete: Cascade)
+    blockerId  String
+    blocking   User   @relation("blocking", fields: [blockingId], references: [username], onUpdate: Cascade, onDelete: Cascade)
+    blockingId String
+
+    id String @id @unique @default(uuid())
+
+    @@unique([blockerId, blockingId])
+}
+
+model Message {
+    id         Int      @id @default(autoincrement())
+    CreatedAt  DateTime @default(now())
+    ReceivedAt DateTime @default(now())
+    content    String
+    user       User     @relation(fields: [username], references: [username], onUpdate: Cascade, onDelete: Cascade)
+    username   String
+    channel    Channel  @relation(fields: [channelId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+    channelId  String
+
+    @@index([CreatedAt])
+}
+
+model Channel {
+    id                String         @id @unique @default(uuid())
+    name              String?        @unique
+    createdAt         DateTime       @default(now())
+    updated           DateTime?      @default(now()) @updatedAt
+    channelType       ChannelType    @default(PUBLIC)
+    subscribedUsers   Subscription[]
+    messages          Message[]
+    hash              String?
+    passwordProtected Boolean        @default(false)
+}
+
+model Subscription {
+    id               String    @id @unique @default(uuid())
+    role             Role      @default(USER)
+    channel          Channel   @relation(fields: [channelId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+    user             User      @relation("myPrivateChannels", fields: [username], references: [username], onUpdate: Cascade, onDelete: Cascade)
+    username         String
+    channelId        String
+    state            State     @default(OK)
+    stateActiveUntil DateTime?
+
+    @@unique(fields: [channelId, username], name: "username_channel")
+}
+
+model Game {
+    id              String    @id @unique @default(uuid())
+    finishedAt      DateTime? @default(now())
+    startedAt       DateTime  @default(now())
+    score_playerOne Int       @default(0)
+    score_playerTwo Int       @default(0)
+    playerOne       User?     @relation("p1player", fields: [playerOneName], references: [username], onUpdate: Cascade, onDelete: SetNull)
+    playerOneName   String?
+    playerTwo       User?     @relation("p2player", fields: [playerTwoName], references: [username], onUpdate: Cascade, onDelete: SetNull)
+    playerTwoName   String?
+}
+
+model Avatar {
+    id        String   @id @unique @default(uuid())
+    updatedAt DateTime @updatedAt
+    createdAt DateTime @default(now())
+    user      User?    @relation("avatar", fields: [username], references: [username], onUpdate: Cascade, onDelete: SetNull)
+    username  String?  @unique
+
+    linkOriginal  String @default("_default.original.webp")
+    linkThumbnail String @default("_default.thumbnail.webp")
+    linkMedium    String @default("_default.medium.webp")
+    linkLarge     String @default("_default.large.webp")
+}
+
+enum State {
+    BANNED
+    MUTED
+    OK
+}
+
+enum ChannelType {
+    PUBLIC
+    PRIVATE
+    ONE_TO_ONE
+}
+
+enum Role {
+    OWNER
+    ADMIN
+    USER
+}

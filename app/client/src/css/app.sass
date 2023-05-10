@@ -1,0 +1,117 @@
+// app global css in Sass form
+@use "./interpolate" as r
+
+@font-face
+  font-family: 'Press Start 2P'
+  src: url(src/assets/PressStart2P-Regular.ttf)
+
+.custom-input input
+  color: white !important
+
+.interpolate-btn
+  @include r.interpolate(font-size, 320px, 2560px, 10px, 20px)
+
+.dialog
+  background-color: $grey-8
+  text-align: center
+
+.close-cross
+  position: relative
+  cursor: pointer
+
+.cross
+  @include r.interpolate(font-size, 320px, 2560px, 10px, 25px)
+
+.debug
+  border: 1px solid red
+  > *
+    border: 1px solid green
+    > *
+      border: 1px solid blue
+
+.debugdeep
+  border: 1px solid red
+  > *
+    border: 1px solid green
+    > *
+      border: 1px solid blue
+      > *
+        border: 1px solid orange
+        > *
+          border: 1px solid magenta
+          > *
+            border: 1px solid cyan
+
+.label
+  @include r.interpolate(font-size, 320px, 2560px, 10px, 30px)
+  color: $blue-grey-3
+
+.press2p
+  font-family: 'Press Start 2P'
+
+.press2psm
+  font-family: 'Press Start 2P'
+  @include r.interpolate(font-size, 320px, 2560px, 8px, 30px)
+
+.bigger
+  @include r.interpolate(font-size, 320px, 2560px, 8px, 40px)
+  @include r.interpolate((padding-top, padding-bottom), 20rem, 70rem, 0rem, .5rem)
+  color: $blue-grey-2
+  font-weight: bold
+
+.r-py-md
+  @include r.interpolate((padding-bottom, padding-top), 320px, 2560px, 8px, 20px)
+
+.r-pt-md
+  @include r.interpolate(padding-top, 320px, 2560px, 16px, 40px)
+
+.r-py-lg
+  @include r.interpolate((padding-bottom, padding-top), 320px, 2560px, 18px, 45px)
+
+.r-mx-md
+  @include r.interpolate((margin-right, margin-left), 320px, 2560px, 8px, 20px)
+
+.r-mx-sm
+  @include r.interpolate((margin-right, margin-left), 320px, 2560px, 4px, 10px)
+
+.r-ml-lg
+  @include r.interpolate((margin-left), 320px, 2560px, 8px, 50px)
+
+.r-pt-lg
+  @include r.interpolate(padding-top, 320px, 2560px, 36px, 90px)
+
+.r-px-xl
+  @include r.interpolate((padding-right, padding-left), 320px, 2560px, 10px, 48px)
+
+.r-px-md
+  @include r.interpolate((padding-right, padding-left), 320px, 2560px, 8px, 30px)
+
+.r-pa-lg
+  @include r.interpolate(padding, 320px, 2560px, 5px, 24px)
+
+.loginstatus
+  width: 14px
+  height: 14px
+  border-radius: 100px
+  position: absolute
+  margin-top: 25px
+  margin-left: 25px
+
+.ONLINE-status
+  background-color: $onlineStatus-online
+  box-shadow: 0px 0px 5px $onlineStatus-online
+.OFFLINE-status
+  background-color: $onlineStatus-offline
+  box-shadow: 0px 0px 5px $onlineStatus-offline
+.INGAME-status
+  background-color: $onlineStatus-ingame
+  box-shadow: 0px 0px 5px $onlineStatus-ingame
+.WATCHING-status
+  background-color: $onlineStatus-watching
+  box-shadow: 0px 0px 5px $onlineStatus-watching
+
+.victory
+  color: $green !important
+
+.defeat
+  color: $red !important

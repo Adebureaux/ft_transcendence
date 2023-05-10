@@ -1,0 +1,8 @@
+app/dist
+.git
+app/docker.env
+app/node_modules
+app/client/node_modules
+app/client/dist
+app/client/.quasar
+app/images

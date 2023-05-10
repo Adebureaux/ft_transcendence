@@ -1,0 +1,47 @@
+version: '3.3'
+services:
+  db:
+    image: postgres:15.0-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - db:/var/lib/postgresql/data
+    networks:
+        - ft_transcendence_network
+  server:
+    container_name: ft_transcendence
+    env_file:
+    - app/.env
+    build:
+      context: ./
+    restart: always
+    ports:
+      - '80:80'
+    volumes:
+      - images:/app/images
+    networks:
+    - ft_transcendence_network
+    depends_on:
+      - db
+volumes:
+  db:
+    driver: local
+    driver_opts:
+      type:
+          none
+      device: ${HOME}/goinfre/db_volume
+      o: bind
+  images:
+    driver: local
+    driver_opts:
+      type:
+          none
+      device: ${HOME}/goinfre/ft_transcendence_images
+      o: bind
+networks:
+    ft_transcendence_network:
+        driver: bridge
