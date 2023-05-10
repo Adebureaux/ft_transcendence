@@ -23,6 +23,7 @@
   "author": "rballage ssingevi tharchen adeburea",
   "license": "MIT",
   "dependencies": {
+    "@jridgewell/sourcemap-codec": "^1.4.15",
     "@nestjs/axios": "^2.0.0",
     "@nestjs/cli": "^9.2.0",
     "@nestjs/common": "^9.2.0",
